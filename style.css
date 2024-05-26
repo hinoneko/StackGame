@@ -10,7 +10,7 @@ body {
     flex-direction: column;
 }
 
-#gameContainer {
+.screen {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,7 +20,11 @@ body {
     margin-top: -130px;
 }
 
-h1 {
+.hidden {
+    display: none;
+}
+
+.title {
     font-size: 120px;
     font-family: 'Arial', sans-serif;
     background: linear-gradient(to right, #FF5F6D, #FFC371);
@@ -30,7 +34,7 @@ h1 {
     transition: all 0.5s ease;
 }
 
-h1.small {
+.title.small {
     font-size: 70px;
     margin-top: 100px;
 }
@@ -45,7 +49,7 @@ h1.small {
     font-size: 60px;
     color: #000000;
     position: absolute;
-    top: 320px;
+    top: 300px;
     left: 50%;
     transform: translateX(-50%);
     font-family: 'Arial', sans-serif;
@@ -54,16 +58,23 @@ h1.small {
 #result {
     font-size: 36px;
     color: #000000;
-    margin-top: 10px;
+    position: absolute;
+    top: 350px;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: 'Arial', sans-serif;
 }
 
-.hidden {
-    display: none;
+#finalMessage {
+    font-size: 48px;
+    font-weight: bold;
+    color: #FF5F6D;
+    margin-bottom: 10px;
 }
 
-#stackContainer.hidden {
-    display: none;
+#scoreMessage {
+    font-size: 36px;
+    color: #000000;
 }
 
 .button-container {
@@ -100,7 +111,8 @@ button:active {
     transform: translateY(4px);
 }
 
-#instructionContainer {
+#instructionContainer,
+#restartConfirmation {
     position: fixed;
     top: 0;
     left: 0;
@@ -116,12 +128,14 @@ button:active {
     transition: visibility 0s, opacity 0.5s;
 }
 
-#instructionContainer.show {
+#instructionContainer.show,
+#restartConfirmation.show {
     visibility: visible;
     opacity: 1;
 }
 
-#instructionContent {
+#instructionContent,
+#confirmationContent {
     background: #ffffff;
     padding: 20px;
     text-align: left;
@@ -134,11 +148,13 @@ button:active {
     align-items: center;
 }
 
-#instructionContent h2 {
+#instructionContent h2,
+#confirmationContent p {
     margin-top: 0;
 }
 
-#instructionContent button {
+#instructionContent button,
+#confirmationContent button {
     margin-top: 20px;
     font-size: 18px;
 }

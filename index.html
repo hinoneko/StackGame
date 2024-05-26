@@ -7,34 +7,49 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="gameContainer">
-    <h1 id="gameTitle">Stack Game</h1>
-    <div id="score" class="hidden">0</div>
-    <div id="result" class="hidden">
-        <span id="finalMessage"></span> Your score is: <span id="finalScore"></span>
-    </div>
+<div id="titleScreen" class="screen">
+    <h1 class="title">Stack Game</h1>
     <div class="button-container">
         <button id="startButton">Start</button>
         <button id="instructionButton">Instructions</button>
     </div>
-    <div id="stackContainer" class="hidden">
-        <canvas id="gameCanvas" width="500" height="600"></canvas>
+</div>
+<div id="gameScreen" class="screen hidden">
+    <h1 class="title small">Stack Game</h1>
+    <div class="button-container">
+        <button id="restartButton">Restart</button>
+        <button id="exitButton">Exit</button>
     </div>
-    <div id="instructionContainer" class="hidden">
-        <div id="instructionContent">
-            <h2>Instructions</h2>
-            <p>Stack Game is a game that requires precision and quick reaction. Practice to build the tallest tower!</p>
-            <h3>How to Play:</h3>
-            <ol>
-                <li>The game starts with one fixed block.</li>
-                <li>The next blocks start to move horizontally across the screen.</li>
-                <li>Press the spacebar to stop the moving block and place it on the previous one.</li>
-                <li>The more precisely you stop the block above the previous one, the larger its area. The non-matching part of the block is cut off.</li>
-                <li>Subsequent blocks become smaller if they are not stacked accurately.</li>
-                <li>With each subsequent block, the speed increases.</li>
-                <li>The game ends when the stacking moment is missed.</li>
-            </ol>
-            <button id="closeInstructionButton">Close</button>
+    <div id="score">0</div>
+    <div id="result" class="hidden">
+        <div id="finalMessage">Game Over!</div>
+        <div id="scoreMessage">Your score is: <span id="finalScore"></span></div>
+    </div>
+    <canvas id="gameCanvas" width="500" height="600"></canvas>
+</div>
+<div id="instructionContainer" class="hidden">
+    <div id="instructionContent">
+        <h2>Instructions</h2>
+        <p>Stack Game is a game that requires precision and quick reaction. Practice to build the tallest tower!</p>
+        <h3>How to Play:</h3>
+        <ol>
+            <li>The game starts with one fixed block.</li>
+            <li>The next blocks start to move horizontally across the screen.</li>
+            <li>Press the spacebar to stop the moving block and place it on the previous one.</li>
+            <li>The more precisely you stop the block above the previous one, the larger its area. The non-matching part of the block is cut off.</li>
+            <li>Subsequent blocks become smaller if they are not stacked accurately.</li>
+            <li>With each subsequent block, the speed increases.</li>
+            <li>The game ends when the stacking moment is missed.</li>
+        </ol>
+        <button id="closeInstructionButton">Close</button>
+    </div>
+</div>
+<div id="restartConfirmation" class="hidden">
+    <div id="confirmationContent">
+        <p>Are you sure you want to restart the game?</p>
+        <div class="button-container">
+            <button id="confirmRestartButton">Yes</button>
+            <button id="cancelRestartButton">No</button>
         </div>
     </div>
 </div>
