@@ -12,6 +12,7 @@ const finalScoreElement = document.getElementById('finalScore');
 const restartConfirmation = document.getElementById('restartConfirmation');
 const confirmRestartButton = document.getElementById('confirmRestartButton');
 const cancelRestartButton = document.getElementById('cancelRestartButton');
+const themeToggle = document.getElementById('themeToggle');
 
 const blockHeight = 30;
 const initialBlockSpeed = 2;
@@ -100,7 +101,7 @@ const resetGame = () => {
     isGameOver = false;
     isGameStarted = true;
     colorIndex = 0;
-    currentBlockSpeed = initialBlockSpeed; // Reset the block speed here
+    currentBlockSpeed = initialBlockSpeed;
     scoreElement.innerText = playerScore;
     scoreElement.classList.remove('hidden');
     resultElement.classList.add('hidden');
@@ -112,7 +113,7 @@ const resetGame = () => {
 const endGame = () => {
     isGameOver = true;
     isGameStarted = false;
-    currentBlockSpeed = initialBlockSpeed; // Reset the block speed here
+    currentBlockSpeed = initialBlockSpeed;
     scoreElement.classList.add('hidden');
     finalMessageElement.innerText = "Game Over!";
     finalScoreElement.innerText = playerScore;
@@ -124,7 +125,7 @@ const endGame = () => {
 const stopGame = () => {
     isGameOver = true;
     isGameStarted = false;
-    currentBlockSpeed = initialBlockSpeed; // Reset the block speed here as well
+    currentBlockSpeed = initialBlockSpeed;
     scoreElement.classList.add('hidden');
     resultElement.classList.add('hidden');
     startButton.disabled = false;
@@ -137,6 +138,14 @@ const gameLoop = () => {
     if (!isGameOver) {
         requestAnimationFrame(gameLoop);
     }
+};
+
+const toggleTheme = () => {
+    document.body.classList.toggle('dark-mode');
+};
+
+const removeFocusFromSwitcher = () => {
+    themeToggle.blur();
 };
 
 startButton.addEventListener('click', () => {
@@ -189,8 +198,12 @@ document.getElementById('closeInstructionButton').addEventListener('click', () =
 });
 
 window.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' && isGameStarted && !isGameOver) {
+    if (e.code === 'Space' && isGameStarted && !isGameOver && document.activeElement !== themeToggle) {
         placeBlock();
     }
 });
 
+themeToggle.addEventListener('change', () => {
+    toggleTheme();
+    removeFocusFromSwitcher();
+});
