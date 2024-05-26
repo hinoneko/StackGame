@@ -22,6 +22,7 @@ const blockSpeedIncrement = 0.1;
 let playerScore = 0;
 let isGameOver = false;
 let isGameStarted = false;
+let isGameRunning = false;
 let colorIndex = 0;
 let blockStack = [];
 
@@ -107,12 +108,16 @@ const resetGame = () => {
     resultElement.classList.add('hidden');
     createBlock(initialBlockSize, true);
     createBlock(initialBlockSize);
-    gameLoop();
+    if (!isGameRunning) {
+        gameLoop();
+        isGameRunning = true;
+    }
 };
 
 const endGame = () => {
     isGameOver = true;
     isGameStarted = false;
+    isGameRunning = false;
     currentBlockSpeed = initialBlockSpeed;
     scoreElement.classList.add('hidden');
     finalMessageElement.innerText = "Game Over!";
@@ -125,6 +130,7 @@ const endGame = () => {
 const stopGame = () => {
     isGameOver = true;
     isGameStarted = false;
+    isGameRunning = false;
     currentBlockSpeed = initialBlockSpeed;
     scoreElement.classList.add('hidden');
     resultElement.classList.add('hidden');
