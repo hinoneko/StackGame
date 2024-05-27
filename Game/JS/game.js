@@ -72,48 +72,59 @@ const placeBlock = () => {
   }
 };
 
-const resetGame = () => {
+const initGameVars = () => {
   blockStack = [];
   playerScore = 0;
   isGameOver = false;
   isGameStarted = true;
   currentBlockSpeed = initialBlockSpeed;
   resetColorIndex();
+};
+
+const setupUI = () => {
   scoreElement.innerText = playerScore;
   scoreElement.classList.remove("hidden");
   resultElement.classList.add("hidden");
   createBlock(initialBlockSize, true);
   createBlock(initialBlockSize);
+};
+
+const startGameLoop = () => {
   if (!isGameRunning) {
     gameLoop();
     isGameRunning = true;
   }
 };
 
-const endGame = () => {
+const resetGame = () => {
+  initGameVars();
+  setupUI();
+  startGameLoop();
+};
+
+const handleGameOver = () => {
   isGameOver = true;
   isGameStarted = false;
   isGameRunning = false;
   currentBlockSpeed = initialBlockSpeed;
   scoreElement.classList.add("hidden");
+  startButton.disabled = false;
+};
+
+const endGame = () => {
+  handleGameOver();
   finalMessageElement.innerText = "Game Over!";
   finalScoreElement.innerText = playerScore;
   resultElement.classList.remove("hidden");
-  startButton.disabled = false;
   restartButton.disabled = false;
 };
 
 const stopGame = () => {
-  isGameOver = true;
-  isGameStarted = false;
-  isGameRunning = false;
-  currentBlockSpeed = initialBlockSpeed;
-  scoreElement.classList.add("hidden");
+  handleGameOver();
   resultElement.classList.add("hidden");
   titleScreen.classList.remove("hidden");
   gameScreen.classList.add("hidden");
   document.querySelector(".title").classList.remove("small");
-  startButton.disabled = false;
   restartButton.disabled = true;
 };
 
