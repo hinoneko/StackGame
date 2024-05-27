@@ -1,3 +1,5 @@
+'use strict';
+
 const canvasElement = document.getElementById("gameCanvas");
 const canvasContext = canvasElement.getContext("2d");
 const blockHeight = 30;

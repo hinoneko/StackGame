@@ -1,3 +1,5 @@
+'use strict';
+
 const startButton = document.getElementById("startButton");
 const restartButton = document.getElementById("restartButton");
 const exitButton = document.getElementById("exitButton");

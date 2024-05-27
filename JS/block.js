@@ -1,3 +1,5 @@
+'use strict';
+
 class Block {
   constructor(xPosition, yPosition, size, blockColor, movementDirection = 0) {
     this.xPosition = xPosition;
