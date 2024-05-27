@@ -1,5 +1,5 @@
-const canvasElement = document.getElementById('gameCanvas');
-const canvasContext = canvasElement.getContext('2d');
+const canvasElement = document.getElementById("gameCanvas");
+const canvasContext = canvasElement.getContext("2d");
 const blockHeight = 30;
 const initialBlockSpeed = 2;
 const initialBlockSize = 200;
@@ -12,114 +12,128 @@ let isGameRunning = false;
 let blockStack = [];
 
 const createBlock = (size, isFirstBlock = false) => {
-    const yPosition = canvasElement.height - (blockStack.length + 1) * blockHeight;
-    const blockColor = getNextBlockColor();
-    let xPosition, movementDirection;
-    if (isFirstBlock) {
-        xPosition = canvasElement.width / 2 - size / 2;
-        movementDirection = 0;
-    } else {
-        movementDirection = Math.random() < 0.5 ? currentBlockSpeed : -currentBlockSpeed;
-        xPosition = movementDirection > 0 ? 0 : canvasElement.width - size;
-    }
-    blockStack.push(new Block(xPosition, yPosition, size, blockColor, movementDirection));
+  const yPosition =
+    canvasElement.height - (blockStack.length + 1) * blockHeight;
+  const blockColor = getNextBlockColor();
+  let xPosition, movementDirection;
+  if (isFirstBlock) {
+    xPosition = canvasElement.width / 2 - size / 2;
+    movementDirection = 0;
+  } else {
+    movementDirection =
+      Math.random() < 0.5 ? currentBlockSpeed : -currentBlockSpeed;
+    xPosition = movementDirection > 0 ? 0 : canvasElement.width - size;
+  }
+  blockStack.push(
+    new Block(xPosition, yPosition, size, blockColor, movementDirection),
+  );
 };
 
 const updateBlocks = () => {
-    if (isGameOver) return;
-    const currentBlock = blockStack[blockStack.length - 1];
-    currentBlock.move();
-    if (currentBlock.yPosition + blockHeight <= canvasElement.height / 2) {
-        blockStack.forEach(block => block.yPosition += blockHeight);
-        blockStack = blockStack.filter(block => block.yPosition < canvasElement.height);
-    }
+  if (isGameOver) return;
+  const currentBlock = blockStack[blockStack.length - 1];
+  currentBlock.move();
+  if (currentBlock.yPosition + blockHeight <= canvasElement.height / 2) {
+    blockStack.forEach((block) => (block.yPosition += blockHeight));
+    blockStack = blockStack.filter(
+      (block) => block.yPosition < canvasElement.height,
+    );
+  }
 };
 
 const drawBlocks = () => {
-    canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    blockStack.forEach(block => block.draw(canvasContext));
+  canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height);
+  blockStack.forEach((block) => block.draw(canvasContext));
 };
 
 const placeBlock = () => {
-    if (blockStack.length < 2) {
-        createBlock(initialBlockSize);
-        return;
-    }
-    const currentBlock = blockStack.pop();
-    const previousBlock = blockStack[blockStack.length - 1];
-    const positionDifference = currentBlock.xPosition - previousBlock.xPosition;
-    const overlap = previousBlock.size - Math.abs(positionDifference);
+  if (blockStack.length < 2) {
+    createBlock(initialBlockSize);
+    return;
+  }
+  const currentBlock = blockStack.pop();
+  const previousBlock = blockStack[blockStack.length - 1];
+  const positionDifference = currentBlock.xPosition - previousBlock.xPosition;
+  const overlap = previousBlock.size - Math.abs(positionDifference);
 
-    if (overlap > 0) {
-        currentBlock.size = overlap;
-        currentBlock.xPosition = positionDifference > 0 ? previousBlock.xPosition + (previousBlock.size - overlap) : previousBlock.xPosition;
-        currentBlockSpeed += blockSpeedIncrement;
-        blockStack.push(currentBlock);
-        createBlock(currentBlock.size);
-        playerScore++;
-        scoreElement.innerText = playerScore;
-    } else {
-        endGame();
-    }
+  if (overlap > 0) {
+    currentBlock.size = overlap;
+    currentBlock.xPosition =
+      positionDifference > 0
+        ? previousBlock.xPosition + (previousBlock.size - overlap)
+        : previousBlock.xPosition;
+    currentBlockSpeed += blockSpeedIncrement;
+    blockStack.push(currentBlock);
+    createBlock(currentBlock.size);
+    playerScore++;
+    scoreElement.innerText = playerScore;
+  } else {
+    endGame();
+  }
 };
 
 const resetGame = () => {
-    blockStack = [];
-    playerScore = 0;
-    isGameOver = false;
-    isGameStarted = true;
-    currentBlockSpeed = initialBlockSpeed;
-    resetColorIndex(); // Reset the color index here
-    scoreElement.innerText = playerScore;
-    scoreElement.classList.remove('hidden');
-    resultElement.classList.add('hidden');
-    createBlock(initialBlockSize, true);
-    createBlock(initialBlockSize);
-    if (!isGameRunning) {
-        gameLoop();
-        isGameRunning = true;
-    }
+  blockStack = [];
+  playerScore = 0;
+  isGameOver = false;
+  isGameStarted = true;
+  currentBlockSpeed = initialBlockSpeed;
+  resetColorIndex(); // Reset the color index here
+  scoreElement.innerText = playerScore;
+  scoreElement.classList.remove("hidden");
+  resultElement.classList.add("hidden");
+  createBlock(initialBlockSize, true);
+  createBlock(initialBlockSize);
+  if (!isGameRunning) {
+    gameLoop();
+    isGameRunning = true;
+  }
 };
 
 const endGame = () => {
-    isGameOver = true;
-    isGameStarted = false;
-    isGameRunning = false;
-    currentBlockSpeed = initialBlockSpeed;
-    scoreElement.classList.add('hidden');
-    finalMessageElement.innerText = "Game Over!";
-    finalScoreElement.innerText = playerScore;
-    resultElement.classList.remove('hidden');
-    startButton.disabled = false;
-    restartButton.disabled = false;
+  isGameOver = true;
+  isGameStarted = false;
+  isGameRunning = false;
+  currentBlockSpeed = initialBlockSpeed;
+  scoreElement.classList.add("hidden");
+  finalMessageElement.innerText = "Game Over!";
+  finalScoreElement.innerText = playerScore;
+  resultElement.classList.remove("hidden");
+  startButton.disabled = false;
+  restartButton.disabled = false;
 };
 
 const stopGame = () => {
-    isGameOver = true;
-    isGameStarted = false;
-    isGameRunning = false;
-    currentBlockSpeed = initialBlockSpeed;
-    scoreElement.classList.add('hidden');
-    resultElement.classList.add('hidden');
-    titleScreen.classList.remove('hidden');
-    gameScreen.classList.add('hidden');
-    document.querySelector('.title').classList.remove('small');
-    startButton.disabled = false;
-    restartButton.disabled = true;
+  isGameOver = true;
+  isGameStarted = false;
+  isGameRunning = false;
+  currentBlockSpeed = initialBlockSpeed;
+  scoreElement.classList.add("hidden");
+  resultElement.classList.add("hidden");
+  titleScreen.classList.remove("hidden");
+  gameScreen.classList.add("hidden");
+  document.querySelector(".title").classList.remove("small");
+  startButton.disabled = false;
+  restartButton.disabled = true;
 };
 
 const gameLoop = () => {
-    updateBlocks();
-    drawBlocks();
-    if (!isGameOver) {
-        requestAnimationFrame(gameLoop);
-    }
+  updateBlocks();
+  drawBlocks();
+  if (!isGameOver) {
+    requestAnimationFrame(gameLoop);
+  }
 };
 
 const placeBlockHandler = (e) => {
-    if (e.code === 'Space' && isGameStarted && !isGameOver && document.activeElement !== themeToggle) {
-        placeBlock();
-    }
+  if (
+    e.code === "Space" &&
+    isGameStarted &&
+    !isGameOver &&
+    document.activeElement !== themeToggle
+  ) {
+    placeBlock();
+  }
 };
 
-window.addEventListener('keydown', placeBlockHandler);
+window.addEventListener("keydown", placeBlockHandler);
