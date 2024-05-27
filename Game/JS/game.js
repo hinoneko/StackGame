@@ -78,7 +78,7 @@ const resetGame = () => {
   isGameOver = false;
   isGameStarted = true;
   currentBlockSpeed = initialBlockSpeed;
-  resetColorIndex(); // Reset the color index here
+  resetColorIndex();
   scoreElement.innerText = playerScore;
   scoreElement.classList.remove("hidden");
   resultElement.classList.add("hidden");
