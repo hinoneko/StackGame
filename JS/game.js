@@ -4,7 +4,7 @@ const canvasElement = document.getElementById("gameCanvas");
 const canvasContext = canvasElement ? canvasElement.getContext("2d") : null;
 
 if (!canvasElement || !canvasContext) {
-  console.error("Canvas або його контекст не знайдено. Гра не може бути запущена.");
+  console.error("Canvas or its context not found. Game cannot be started.");
 }
 
 const blockHeight = 30;
