@@ -1,5 +1,3 @@
-'use strict';
-
 const themeToggle = document.getElementById("themeToggle");
 
 const toggleTheme = () => {

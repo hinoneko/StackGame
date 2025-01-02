@@ -1,7 +1,12 @@
-'use strict';
+"use strict";
 
 const canvasElement = document.getElementById("gameCanvas");
-const canvasContext = canvasElement.getContext("2d");
+const canvasContext = canvasElement ? canvasElement.getContext("2d") : null;
+
+if (!canvasElement || !canvasContext) {
+  console.error("Canvas або його контекст не знайдено. Гра не може бути запущена.");
+}
+
 const blockHeight = 30;
 const initialBlockSpeed = 2;
 const initialBlockSize = 200;
@@ -15,19 +20,21 @@ let blockStack = [];
 
 const createBlock = (size, isFirstBlock = false) => {
   const yPosition =
-    canvasElement.height - (blockStack.length + 1) * blockHeight;
+      canvasElement.height - (blockStack.length + 1) * blockHeight;
   const blockColor = getNextBlockColor();
   let xPosition, movementDirection;
+
   if (isFirstBlock) {
     xPosition = canvasElement.width / 2 - size / 2;
     movementDirection = 0;
   } else {
     movementDirection =
-      Math.random() < 0.5 ? currentBlockSpeed : -currentBlockSpeed;
+        Math.random() < 0.5 ? currentBlockSpeed : -currentBlockSpeed;
     xPosition = movementDirection > 0 ? 0 : canvasElement.width - size;
   }
+
   blockStack.push(
-    new Block(xPosition, yPosition, size, blockColor, movementDirection),
+      new Block(xPosition, yPosition, size, blockColor, movementDirection),
   );
 };
 
@@ -35,10 +42,11 @@ const updateBlocks = () => {
   if (isGameOver) return;
   const currentBlock = blockStack[blockStack.length - 1];
   currentBlock.move();
+
   if (currentBlock.yPosition + blockHeight <= canvasElement.height / 2) {
     blockStack.forEach((block) => (block.yPosition += blockHeight));
     blockStack = blockStack.filter(
-      (block) => block.yPosition < canvasElement.height,
+        (block) => block.yPosition < canvasElement.height,
     );
   }
 };
@@ -53,6 +61,7 @@ const placeBlock = () => {
     createBlock(initialBlockSize);
     return;
   }
+
   const currentBlock = blockStack.pop();
   const previousBlock = blockStack[blockStack.length - 1];
   const positionDifference = currentBlock.xPosition - previousBlock.xPosition;
@@ -61,9 +70,9 @@ const placeBlock = () => {
   if (overlap > 0) {
     currentBlock.size = overlap;
     currentBlock.xPosition =
-      positionDifference > 0
-        ? previousBlock.xPosition + (previousBlock.size - overlap)
-        : previousBlock.xPosition;
+        positionDifference > 0
+            ? previousBlock.xPosition + (previousBlock.size - overlap)
+            : previousBlock.xPosition;
     currentBlockSpeed += blockSpeedIncrement;
     blockStack.push(currentBlock);
     createBlock(currentBlock.size);
@@ -131,8 +140,14 @@ const stopGame = () => {
 };
 
 const gameLoop = () => {
+  if (!document.hasFocus()) {
+    requestAnimationFrame(gameLoop);
+    return;
+  }
+
   updateBlocks();
   drawBlocks();
+
   if (!isGameOver) {
     requestAnimationFrame(gameLoop);
   }
@@ -140,10 +155,10 @@ const gameLoop = () => {
 
 const placeBlockHandler = (e) => {
   if (
-    e.code === "Space" &&
-    isGameStarted &&
-    !isGameOver &&
-    document.activeElement !== themeToggle
+      e.code === "Space" &&
+      isGameStarted &&
+      !isGameOver &&
+      document.activeElement !== themeToggle
   ) {
     placeBlock();
   }

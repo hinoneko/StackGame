@@ -1,5 +1,3 @@
-'use strict';
-
 const startButton = document.getElementById("startButton");
 const restartButton = document.getElementById("restartButton");
 const exitButton = document.getElementById("exitButton");
@@ -52,7 +50,7 @@ document.getElementById("instructionButton").addEventListener("click", () => {
 });
 
 document
-  .getElementById("closeInstructionButton")
-  .addEventListener("click", () => {
-    document.getElementById("instructionContainer").classList.remove("show");
-  });
+    .getElementById("closeInstructionButton")
+    .addEventListener("click", () => {
+      document.getElementById("instructionContainer").classList.remove("show");
+    });

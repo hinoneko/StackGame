@@ -1,5 +1,3 @@
-'use strict';
-
 let colorIndex = 0;
 const blockColors = [
   "#FF5F6D",
