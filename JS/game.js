@@ -20,7 +20,7 @@ let blockStack = [];
 
 const createBlock = (size, isFirstBlock = false) => {
   const yPosition =
-      canvasElement.height - (blockStack.length + 1) * blockHeight;
+    canvasElement.height - (blockStack.length + 1) * blockHeight;
   const blockColor = getNextBlockColor();
   let xPosition, movementDirection;
 
@@ -29,12 +29,12 @@ const createBlock = (size, isFirstBlock = false) => {
     movementDirection = 0;
   } else {
     movementDirection =
-        Math.random() < 0.5 ? currentBlockSpeed : -currentBlockSpeed;
+      Math.random() < 0.5 ? currentBlockSpeed : -currentBlockSpeed;
     xPosition = movementDirection > 0 ? 0 : canvasElement.width - size;
   }
 
   blockStack.push(
-      new Block(xPosition, yPosition, size, blockColor, movementDirection),
+    new Block(xPosition, yPosition, size, blockColor, movementDirection),
   );
 };
 
@@ -46,7 +46,7 @@ const updateBlocks = () => {
   if (currentBlock.yPosition + blockHeight <= canvasElement.height / 2) {
     blockStack.forEach((block) => (block.yPosition += blockHeight));
     blockStack = blockStack.filter(
-        (block) => block.yPosition < canvasElement.height,
+      (block) => block.yPosition < canvasElement.height,
     );
   }
 };
@@ -70,9 +70,9 @@ const placeBlock = () => {
   if (overlap > 0) {
     currentBlock.size = overlap;
     currentBlock.xPosition =
-        positionDifference > 0
-            ? previousBlock.xPosition + (previousBlock.size - overlap)
-            : previousBlock.xPosition;
+      positionDifference > 0
+        ? previousBlock.xPosition + (previousBlock.size - overlap)
+        : previousBlock.xPosition;
     currentBlockSpeed += blockSpeedIncrement;
     blockStack.push(currentBlock);
     createBlock(currentBlock.size);
@@ -155,10 +155,10 @@ const gameLoop = () => {
 
 const placeBlockHandler = (e) => {
   if (
-      e.code === "Space" &&
-      isGameStarted &&
-      !isGameOver &&
-      document.activeElement !== themeToggle
+    e.code === "Space" &&
+    isGameStarted &&
+    !isGameOver &&
+    document.activeElement !== themeToggle
   ) {
     placeBlock();
   }

@@ -50,7 +50,7 @@ document.getElementById("instructionButton").addEventListener("click", () => {
 });
 
 document
-    .getElementById("closeInstructionButton")
-    .addEventListener("click", () => {
-      document.getElementById("instructionContainer").classList.remove("show");
-    });
+  .getElementById("closeInstructionButton")
+  .addEventListener("click", () => {
+    document.getElementById("instructionContainer").classList.remove("show");
+  });
