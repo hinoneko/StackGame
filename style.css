@@ -1,22 +1,46 @@
+:root {
+  --font-family: "Arial", sans-serif;
+  --transition-duration: 0.5s;
+  --transition-duration-short: 0.3s;
+
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --button-bg: linear-gradient(to right, #ff5f6d, #ffc371);
+  --button-hover-bg: linear-gradient(to right, #ffc371, #ff5f6d);
+  --title-gradient: linear-gradient(to right, #ff5f6d, #ffc371);
+  --border-color: #000000;
+
+  --dark-background-color: #191d27;
+  --dark-text-color: #ffffff;
+  --dark-button-bg: linear-gradient(to right, #4e989a, #577edf);
+  --dark-button-hover-bg: linear-gradient(to right, #577edf, #4e989a);
+  --dark-title-gradient: linear-gradient(to right, #4e989a, #577edf);
+  --dark-border-color: #ffffff;
+
+  --box-shadow-light: 0 2px #353a43;
+  --box-shadow-dark: 0 2px #ffffff;
+  --overlay-background: rgba(0, 0, 0, 0.8);
+}
+
 body {
   margin: 0;
   overflow: hidden;
-  font-family: "Arial", sans-serif;
+  font-family: var(--font-family);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #ffffff;
-  color: #000000;
+  background: var(--background-color);
+  color: var(--text-color);
   flex-direction: column;
   transition:
-    background-color 0.5s,
-    color 0.5s;
+    background-color var(--transition-duration),
+    color var(--transition-duration);
 }
 
 body.dark-mode {
-  background: #191d27;
-  color: #ffffff;
+  background: var(--dark-background-color);
+  color: var(--dark-text-color);
 }
 
 .screen {
@@ -26,7 +50,7 @@ body.dark-mode {
   text-align: center;
   position: relative;
   width: 100%;
-  margin-top: -130px;
+  margin-top: -8.125rem;
 }
 
 .hidden {
@@ -34,110 +58,107 @@ body.dark-mode {
 }
 
 .title {
-  font-size: 120px;
-  font-family: "Arial", sans-serif;
-  background: linear-gradient(to right, #ff5f6d, #ffc371);
+  font-size: 7.5rem;
+  background: var(--title-gradient);
   -webkit-background-clip: text;
   color: transparent;
-  margin-bottom: 10px;
-  transition: all 0.5s ease;
+  margin-bottom: 0.625rem;
+  transition: all var(--transition-duration) ease;
 }
 
 body.dark-mode .title {
-  background: linear-gradient(to right, #4e989a, #577edf);
+  background: var(--dark-title-gradient);
   -webkit-background-clip: text;
   color: transparent;
 }
 
 .title.small {
-  font-size: 70px;
-  margin-top: 100px;
+  font-size: 4.375rem;
+  margin-top: 6.25rem;
 }
 
 #gameCanvas {
-  border: 3px solid #000000;
-  margin-top: 20px;
+  border: 0.1875rem solid var(--border-color);
+  margin-top: 1.25rem;
   position: relative;
 }
 
 body.dark-mode #gameCanvas {
-  border: 3px solid #ffffff;
+  border-color: var(--dark-border-color);
 }
 
 #score {
-  font-size: 60px;
+  font-size: 3.75rem;
   position: absolute;
-  top: 320px;
+  top: 20rem;
   left: 50%;
   transform: translateX(-50%);
-  font-family: "Arial", sans-serif;
+  font-family: var(--font-family);
 }
 
 #result {
-  font-size: 36px;
+  font-size: 2.25rem;
   position: absolute;
-  top: 350px;
+  top: 21.875rem;
   left: 50%;
   transform: translateX(-50%);
-  font-family: "Arial", sans-serif;
+  font-family: var(--font-family);
 }
 
 #finalMessage {
-  font-size: 48px;
+  font-size: 3rem;
   font-weight: bold;
   color: #ff5f6d;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 #scoreMessage {
-  font-size: 36px;
+  font-size: 2.25rem;
 }
 
 .button-container {
   display: flex;
   justify-content: center;
-  gap: 180px;
-  margin-top: 20px;
+  gap: 11.25rem;
+  margin-top: 1.25rem;
 }
 
 button {
-  font-size: 24px;
+  font-size: 1.5rem;
   border: none;
-  background: linear-gradient(to right, #ff5f6d, #ffc371);
-  color: white;
-  padding: 15px 30px;
+  background: var(--button-bg);
+  color: #ffffff;
+  padding: 0.9375rem 1.875rem;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
   cursor: pointer;
-  border-radius: 12px;
-  box-shadow: 0 4px #999;
-  transition: all 0.3s ease;
-  font-family: "Arial", sans-serif;
+  border-radius: 0.75rem;
+  box-shadow: var(--box-shadow-light);
+  transition:
+    background var(--transition-duration-short) ease,
+    transform 0.3s ease;
+  font-family: var(--font-family);
 }
 
 body.dark-mode button {
-  background: linear-gradient(to right, #4e989a, #577edf);
-  color: white;
+  background: var(--dark-button-bg);
+  box-shadow: var(--box-shadow-dark);
 }
 
 button:hover {
-  background: linear-gradient(to right, #ffc371, #ff5f6d);
+  background: var(--button-hover-bg);
 }
 
 body.dark-mode button:hover {
-  background: linear-gradient(to right, #577edf, #4e989a);
+  background: var(--dark-button-hover-bg);
 }
 
 button:active {
-  background: linear-gradient(to right, #ffc371, #ff5f6d);
-  box-shadow: 0 2px #666;
-  transform: translateY(4px);
+  background: var(--button-hover-bg);
+  transform: translateY(0.25rem);
 }
 
 body.dark-mode button:active {
-  background: linear-gradient(to right, #577edf, #4e989a);
+  background: var(--dark-button-hover-bg);
 }
 
 #instructionContainer,
@@ -147,7 +168,7 @@ body.dark-mode button:active {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--overlay-background);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -156,7 +177,7 @@ body.dark-mode button:active {
   opacity: 0;
   transition:
     visibility 0s,
-    opacity 0.5s;
+    opacity var(--transition-duration);
 }
 
 #instructionContainer.show,
@@ -167,13 +188,13 @@ body.dark-mode button:active {
 
 #instructionContent,
 #confirmationContent {
-  background: #ffffff;
-  padding: 20px;
+  background: var(--background-color);
+  padding: 1.25rem;
   text-align: left;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  font-family: "Arial", sans-serif;
-  font-size: 18px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.5);
+  font-family: var(--font-family);
+  font-size: 1.125rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -182,7 +203,7 @@ body.dark-mode button:active {
 body.dark-mode #instructionContent,
 body.dark-mode #confirmationContent {
   background: #353a43;
-  color: #ffffff;
+  color: var(--dark-text-color);
 }
 
 #instructionContent h2,
@@ -192,22 +213,22 @@ body.dark-mode #confirmationContent {
 
 #instructionContent button,
 #confirmationContent button {
-  margin-top: 20px;
-  font-size: 18px;
+  margin-top: 1.25rem;
+  font-size: 1.125rem;
 }
 
 #themeSwitcher {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 1.25rem;
+  right: 1.25rem;
   z-index: 2000;
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 100px;
-  height: 50px;
+  width: 6.25rem;
+  height: 3.125rem;
 }
 
 .switch input {
@@ -224,19 +245,19 @@ body.dark-mode #confirmationContent {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 50px;
+  transition: background-color 0.4s;
+  border-radius: 3.125rem;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 42px;
-  width: 42px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
+  height: 2.625rem;
+  width: 2.625rem;
+  left: 0.25rem;
+  bottom: 0.25rem;
+  background-color: #ffffff;
+  transition: transform 0.4s;
   border-radius: 50%;
 }
 
@@ -245,5 +266,66 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-  transform: translateX(50px);
+  transform: translateX(3.125rem);
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 5rem;
+  }
+
+  .title.small {
+    font-size: 3.125rem;
+    margin-top: 3.75rem;
+  }
+
+  #score {
+    font-size: 2.5rem;
+    top: 20rem;
+  }
+
+  #result {
+    font-size: 1.75rem;
+  }
+
+  button {
+    font-size: 1.25rem;
+    padding: 0.625rem 1.25rem;
+  }
+
+  .button-container {
+    gap: 1.25rem;
+    flex-direction: column;
+  }
+
+  #instructionContent,
+  #confirmationContent {
+    width: 80%;
+    padding: 1rem;
+  }
+
+  .switch {
+    width: 5rem;
+    height: 3rem;
+  }
+
+  .slider:before {
+    height: 2.5rem;
+    width: 2.5rem;
+    left: 0.2rem;
+    bottom: 0.2rem;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(2.8rem);
+  }
+}
+
+button:focus {
+  outline: 0.125rem solid #577edf;
+  outline-offset: 0.125rem;
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 0 0.25rem #577edf;
 }
